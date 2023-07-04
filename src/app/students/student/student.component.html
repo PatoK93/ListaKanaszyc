@@ -1,0 +1,49 @@
+<div [ngSwitch]="ageFilter">
+    <div *ngSwitchCase="20">Los alumnos vistos tienen 20 años</div>
+  
+    <div *ngSwitchCase="40">Los alumnos vistos tienen 40 años</div>
+
+    <div *ngSwitchCase="60">Los alumnos vistos tienen 60 años</div>
+  
+    <div *ngSwitchDefault>No hay alumnos en la edad seleccionada!</div>
+</div>
+
+<ul>
+    <li *ngFor="let student of students; let i = index">
+        <span *ngIf="student.age == ageFilter; else emptyTemplateStudents">      
+            <p>{{ i }} - {{ student.name | lowercase }}</p>
+            <p>{{ student.lastname | lowercase }}</p>
+            <p>{{ student.age }}</p>
+        </span>
+    </li>
+</ul>
+<ng-template #emptyTemplateStudents>
+    <span>Este alumno no tiene {{ ageFilter }}</span>
+</ng-template>
+
+<br>
+<br>
+
+<form> 
+    <input appRoundedBlock
+      [(ngModel)]="student.name"
+      placeholder="Nombre"
+      type="text"
+      name="name"
+    />
+    <input appRoundedBlock
+      [(ngModel)]="student.lastname"
+      placeholder="Apellido"
+      type="text"
+      name="lastname"
+    />
+    <input appRoundedBlock
+    [(ngModel)]="student.age"
+    placeholder="Edad"
+    type="text"
+    name="age"
+    />
+    <button (click)="onSave($event)" type="button">Guardar</button>
+</form>
+
+
